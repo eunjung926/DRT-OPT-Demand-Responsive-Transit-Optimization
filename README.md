@@ -67,7 +67,11 @@ python -m drt_opt.cli web
 # → http://127.0.0.1:8080
 ```
 
-![Simulator Demo](docs/assets/simulator_demo.gif)
+<p align="center">
+  <img src="docs/assets/simulator_result.gif" width="800">
+  <br>
+  <em>Simulator Demo</em>
+</p>
 
 | | |
 |---|---|
