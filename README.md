@@ -141,7 +141,7 @@ python -m drt_opt.cli download-data
 |---|---|
 | `data/raw/stops.csv` | [버스노선별 정류장 현황](https://www.data.go.kr/data/15048265/fileData.do) |
 | `data/raw/demand.csv` | [정류장별 이용승객 현황](https://www.data.go.kr/data/15048264/fileData.do) |
-| `data/raw/links.csv` | [논리링크 현황](https://www.data.go.kr/data/15117311/fileData.do) (선택) |
+| `data/raw/links.csv` | [버스정보관리시스템 논리링크 현황](https://www.data.go.kr/data/15117311/fileData.do) |
 
 
 ### 3. 데이터 전처리
