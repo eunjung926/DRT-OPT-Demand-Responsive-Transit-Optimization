@@ -1,0 +1,109 @@
+simulation:
+  start_time_min: 480
+  end_time_min: 1320
+  dwell_time_min: 0.5
+vehicle:
+  count: 8
+  capacity: 16
+  speed_kmh: 25
+weights:
+  demand: 0.17522968993077792
+  detour: 0.6689416060160988
+  distance: 0.660515288499526
+  wait: 2.0936465588839464
+constraints:
+  max_existing_delay_min: 15
+  max_new_wait_min: 20
+region:
+  name: yeongjong
+  bbox:
+    lat_min: 37.418
+    lat_max: 37.535
+    lon_min: 126.365
+    lon_max: 126.56
+  name_keywords:
+  - 영종
+  - 운서
+  - 을왕
+  - 무의
+  - 백운
+  district_filter: 영종
+demand:
+  requests_per_hour: 12
+  peak_multiplier: 2.0
+  peak_hours:
+  - 7
+  - 8
+  - 18
+  - 19
+data:
+  raw_dir: data/raw
+  processed_dir: data/processed
+gpu:
+  enabled: true
+  device: auto
+  batch_candidates: true
+map:
+  tile: OpenStreetMap
+  use_osrm_routes: true
+  osrm_server: https://router.project-osrm.org
+  output_dir: results/maps
+web:
+  host: 127.0.0.1
+  port: 8080
+  start_time_min: 480
+  end_time_min: 720
+  requests_per_hour: 28
+  peak_multiplier: 2.5
+  frame_interval_min: 1.0
+  max_frames: 500
+tuning:
+  start_time_min: 480
+  end_time_min: 720
+  requests_per_hour: 18
+  evaluation_seeds:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  method: random
+  n_trials: 40
+  grid:
+    wait:
+    - 0.5
+    - 1.0
+    - 1.5
+    - 2.0
+    detour:
+    - 0.2
+    - 0.5
+    - 1.0
+    distance:
+    - 0.1
+    - 0.3
+    - 0.5
+    demand:
+    - 0.1
+    - 0.2
+    - 0.4
+    - 0.6
+  ranges:
+    wait:
+    - 0.3
+    - 3.0
+    detour:
+    - 0.1
+    - 1.5
+    distance:
+    - 0.05
+    - 0.8
+    demand:
+    - 0.05
+    - 0.8
+  objective:
+    wait: 1.0
+    success: 80.0
+    distance: 0.05
+    reject: 50.0
+  output_dir: results/tuning

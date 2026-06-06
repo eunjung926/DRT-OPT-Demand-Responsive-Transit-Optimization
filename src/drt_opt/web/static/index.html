@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>영종도 DRT 시뮬레이터 — Baseline vs 최적화</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="/static/style.css?v=4" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <h1>영종도 DRT 배차 시뮬레이터</h1>
+      <p class="subtitle">동일 수요 · 실시간 비교 · OpenStreetMap</p>
+    </div>
+    <div class="header-controls">
+      <label>Seed <input type="number" id="seed" value="42" min="0" /></label>
+      <button id="btn-run" class="btn primary">시뮬레이션 시작</button>
+      <button id="btn-play" class="btn" disabled>▶ 재생</button>
+      <button id="btn-pause" class="btn" disabled>⏸ 일시정지</button>
+      <label class="speed-label">속도
+        <select id="speed">
+          <option value="200">0.5x</option>
+          <option value="100" selected>1x</option>
+          <option value="50">2x</option>
+          <option value="25">4x</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <div id="loading" class="loading hidden">
+    <div class="spinner"></div>
+    <p>Baseline · Optimized 동시 시뮬레이션 실행 중…</p>
+  </div>
+
+  <div id="live-diff" class="live-diff hidden">
+    <div class="live-diff-item baseline-side">
+      <span class="live-label">Baseline</span>
+      <span id="live-bl-success" class="live-val">—</span>
+      <span class="live-sub">성공률</span>
+    </div>
+    <div class="live-diff-center">
+      <span id="live-accept-diff" class="live-highlight">수락 —</span>
+      <span id="live-wait-diff" class="live-sub-diff">대기 —</span>
+      <span id="live-reject-diff" class="live-sub-diff">거절 —</span>
+    </div>
+    <div class="live-diff-item optimized-side">
+      <span class="live-label">Optimized</span>
+      <span id="live-op-success" class="live-val">—</span>
+      <span class="live-sub">성공률</span>
+    </div>
+  </div>
+
+  <main class="compare-grid">
+    <section class="panel baseline-panel">
+      <div class="panel-header baseline">
+        <h2>기존 방식</h2>
+        <span class="badge">가까운 차량 + 요청 쌓임</span>
+      </div>
+      <div class="kpi-row" id="kpi-baseline">
+        <div class="kpi"><span class="kpi-val" id="bl-wait">—</span><span class="kpi-lbl">평균 대기(분)</span></div>
+        <div class="kpi"><span class="kpi-val" id="bl-success">—</span><span class="kpi-lbl">배차 성공률</span></div>
+        <div class="kpi kpi-good"><span class="kpi-val" id="bl-accepted">—</span><span class="kpi-lbl">수락</span></div>
+        <div class="kpi kpi-warn"><span class="kpi-val" id="bl-reject">—</span><span class="kpi-lbl">거절</span></div>
+      </div>
+      <div id="map-baseline" class="map"></div>
+    </section>
+
+    <section class="panel optimized-panel">
+      <div class="panel-header optimized">
+        <h2>최적화 방식</h2>
+        <span class="badge">삽입 · 제약 · 수요 가중</span>
+      </div>
+      <div class="kpi-row" id="kpi-optimized">
+        <div class="kpi"><span class="kpi-val" id="op-wait">—</span><span class="kpi-lbl">평균 대기(분)</span></div>
+        <div class="kpi"><span class="kpi-val" id="op-success">—</span><span class="kpi-lbl">배차 성공률</span></div>
+        <div class="kpi kpi-good"><span class="kpi-val" id="op-accepted">—</span><span class="kpi-lbl">수락</span></div>
+        <div class="kpi"><span class="kpi-val" id="op-reject">—</span><span class="kpi-lbl">거절</span></div>
+      </div>
+      <div id="map-optimized" class="map"></div>
+    </section>
+  </main>
+
+  <footer class="timeline-bar">
+    <span id="time-label" class="time-label">08:00</span>
+    <input type="range" id="timeline" min="0" max="0" value="0" disabled />
+    <div class="compare-summary" id="compare-summary">
+      시뮬레이션을 시작하면 Baseline과 최적화 결과가 나란히 표시됩니다.
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/static/app.js?v=5"></script>
+</body>
+</html>
